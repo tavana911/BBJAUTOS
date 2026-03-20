@@ -1,0 +1,158 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Raleway:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 5%;
+    --foreground: 0 0% 95%;
+
+    --card: 0 0% 8%;
+    --card-foreground: 0 0% 95%;
+
+    --popover: 0 0% 8%;
+    --popover-foreground: 0 0% 95%;
+
+    --primary: 43 74% 49%;
+    --primary-foreground: 0 0% 5%;
+
+    --secondary: 0 0% 12%;
+    --secondary-foreground: 0 0% 90%;
+
+    --muted: 0 0% 15%;
+    --muted-foreground: 0 0% 60%;
+
+    --accent: 0 72% 51%;
+    --accent-foreground: 0 0% 98%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 0 0% 18%;
+    --input: 0 0% 18%;
+    --ring: 43 74% 49%;
+
+    --radius: 0.5rem;
+
+    --gold: 43 74% 49%;
+    --gold-light: 43 80% 65%;
+    --charcoal: 0 0% 12%;
+    --charcoal-light: 0 0% 18%;
+    --silver: 0 0% 75%;
+
+    --font-display: 'Playfair Display', serif;
+    --font-body: 'Raleway', sans-serif;
+
+    --gradient-gold: linear-gradient(135deg, hsl(43 74% 49%), hsl(43 80% 65%));
+    --gradient-dark: linear-gradient(180deg, hsl(0 0% 5%) 0%, hsl(0 0% 10%) 100%);
+    --gradient-card: linear-gradient(145deg, hsl(0 0% 10%) 0%, hsl(0 0% 6%) 100%);
+    --shadow-gold: 0 0 30px hsl(43 74% 49% / 0.15);
+    --shadow-card: 0 10px 40px hsl(0 0% 0% / 0.5);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-body antialiased;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+  }
+}
+
+@layer components {
+  .btn-gold {
+    @apply inline-flex items-center justify-center px-8 py-3 font-body font-semibold tracking-wider uppercase text-sm rounded-sm transition-all duration-300;
+    background: var(--gradient-gold);
+    color: hsl(var(--primary-foreground));
+    box-shadow: var(--shadow-gold);
+  }
+  .btn-gold:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 40px hsl(43 74% 49% / 0.3);
+  }
+
+  .btn-outline-gold {
+    @apply inline-flex items-center justify-center px-8 py-3 font-body font-semibold tracking-wider uppercase text-sm rounded-sm transition-all duration-300 border-2;
+    border-color: hsl(var(--primary));
+    color: hsl(var(--primary));
+  }
+  .btn-outline-gold:hover {
+    background: hsl(var(--primary));
+    color: hsl(var(--primary-foreground));
+    transform: translateY(-2px);
+  }
+
+  .section-padding {
+    @apply py-20 md:py-28 px-4;
+  }
+
+  .gold-text {
+    background: var(--gradient-gold);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .glass-card {
+    background: var(--gradient-card);
+    border: 1px solid hsl(var(--border));
+    box-shadow: var(--shadow-card);
+  }
+
+  .logo-glow {
+    filter: drop-shadow(0 0 20px hsl(43 74% 49% / 0.4));
+    animation: logoGlow 3s ease-in-out infinite alternate;
+  }
+
+  @keyframes logoGlow {
+    from { filter: drop-shadow(0 0 15px hsl(43 74% 49% / 0.3)); }
+    to { filter: drop-shadow(0 0 30px hsl(43 74% 49% / 0.6)); }
+  }
+
+  @keyframes shimmer {
+    0% { background-position: -200% center; }
+    100% { background-position: 200% center; }
+  }
+
+  .shimmer-text {
+    background: linear-gradient(90deg, hsl(var(--silver)) 0%, hsl(var(--gold-light)) 50%, hsl(var(--silver)) 100%);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: shimmer 4s linear infinite;
+  }
+
+  .gold-divider {
+    width: 80px;
+    height: 2px;
+    background: var(--gradient-gold);
+  }
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: hsl(var(--background));
+}
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--charcoal-light));
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--primary));
+}
+
+html {
+  scroll-behavior: smooth;
+}
