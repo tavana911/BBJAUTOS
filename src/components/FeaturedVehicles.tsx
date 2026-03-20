@@ -10,6 +10,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
+  DialogClose,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -282,9 +283,13 @@ const FeaturedVehicles = () => {
                             </div>
 
                             <div className="pt-4">
-                              <Button className="w-full btn-gold">
-                                Contact Us About This Vehicle
-                              </Button>
+                              <DialogClose asChild>
+                                <Button asChild>
+                                  <a href="#contact" className="w-full btn-gold">
+                                    Contact Us About This Vehicle
+                                  </a>
+                                </Button>
+                              </DialogClose>
                             </div>
                           </div>
                         </div>
