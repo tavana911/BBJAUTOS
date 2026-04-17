@@ -4,6 +4,15 @@ import car1 from "@/assets/car-1.jpg";
 import car2 from "@/assets/car-2.jpg";
 import car3 from "@/assets/car-3.jpg";
 import car4 from "@/assets/car-4.jpg";
+import car5 from "@/assets/Mercedes GLA 5.jpeg";
+import car5b from "@/assets/Mercedes GLA 5b.jpeg";
+import car5c from "@/assets/Mercedes GLA 5c.jpeg";
+import car5d from "@/assets/Mercedes GLA 5d.jpeg";
+import car5e from "@/assets/Mercedes GLA 5e.jpeg";
+import car5f from "@/assets/Mercedes GLA 5f.jpeg";
+import car5g from "@/assets/Mercedes GLA 5g.jpeg";
+import car5h from "@/assets/Mercedes GLA 5h.jpeg";
+import car5i from "@/assets/Mercedes GLA 5i.jpeg";
 import {
   Dialog,
   DialogContent,
@@ -17,6 +26,40 @@ import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 
 const vehicles = [
+
+{
+  image: car5,
+  name: "Mercedes-Benz GLA 200",
+  price: "Price Upon Request", // Or enter your specific price here
+  tag: "GCC Specs",
+  year: "2023",
+  mileage: "10,000 km",
+  fuel: "Petrol",
+  transmission: "Automatic",
+  description: "Pristine 2023 Mercedes GLA 200 with GCC specifications. Features full Agency Warranty and Free Service contract until February 2028 or 105,000 km. This vehicle is loaded with premium options and a sport body kit.",
+  features: [
+    "2-Tone Leather Interior",
+    "Agency Warranty & Service (2028)",
+    "360 Degree Cameras",
+    "Panoramic Sunroof",
+    "Navigation & Bluetooth System",
+    "Sport System & Body Kit",
+    "Front/Rear Parking Sensors",
+    "Side Steps"
+  ],
+  // All your specific GLA images added here:
+  images: [car5, car5b, car5c, car5d, car5e, car5f, car5g, car5h, car5i],
+  specs: {
+    engine: "1.3L 4-Cylinder Turbo",
+    power: "163 hp",
+    torque: "250 Nm",
+    acceleration: "0-100 km/h in 8.7s",
+    topSpeed: "210 km/h"
+  }
+},
+
+
+
   {
     image: car1,
     name: "Executive S-Class",
