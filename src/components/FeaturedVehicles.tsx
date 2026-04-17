@@ -5,6 +5,7 @@ import car2 from "@/assets/car-2.jpg";
 import car3 from "@/assets/car-3.jpg";
 import car4 from "@/assets/car-4.jpg";
 import car5 from "@/assets/Mercedes GLA 5.jpeg";
+import car5a from "@/assets/Mercedes GLA 5a.jpeg";
 import car5b from "@/assets/Mercedes GLA 5b.jpeg";
 import car5c from "@/assets/Mercedes GLA 5c.jpeg";
 import car5d from "@/assets/Mercedes GLA 5d.jpeg";
@@ -47,7 +48,7 @@ const vehicles = [
     "Front/Rear Parking Sensors",
     "Side Steps"
   ],
-  images: [car5, car5b, car5c, car5d, car5e, car5f, car5g, car5h, car5i],
+  images: [car5, car5a, car5b, car5c, car5d, car5e, car5f, car5g, car5h, car5i],
   specs: {
     engine: "1.3L 4-Cylinder Turbo",
     power: "163 hp",
