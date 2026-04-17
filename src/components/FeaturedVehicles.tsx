@@ -4,16 +4,16 @@ import car1 from "@/assets/car-1.jpg";
 import car2 from "@/assets/car-2.jpg";
 import car3 from "@/assets/car-3.jpg";
 import car4 from "@/assets/car-4.jpg";
-import car5 from "@/assets/Mercedes GLA 5.jpeg";
-import car5a from "@/assets/Mercedes GLA 5a.jpeg";
-import car5b from "@/assets/Mercedes GLA 5b.jpeg";
-import car5c from "@/assets/Mercedes GLA 5c.jpeg";
-import car5d from "@/assets/Mercedes GLA 5d.jpeg";
-import car5e from "@/assets/Mercedes GLA 5e.jpeg";
-import car5f from "@/assets/Mercedes GLA 5f.jpeg";
-import car5g from "@/assets/Mercedes GLA 5g.jpeg";
-import car5h from "@/assets/Mercedes GLA 5h.jpeg";
-import car5i from "@/assets/Mercedes GLA 5i.jpeg";
+import car5 from "@/assets/Mercedes-gla-5.jpeg";
+import car5a from "@/assets/Mercedes-gla-5a.jpeg";
+import car5b from "@/assets/Mercedes-gla-5b.jpeg";
+import car5c from "@/assets/Mercedes-gla-5c.jpeg";
+import car5d from "@/assets/Mercedes-gla-5d.jpeg";
+import car5e from "@/assets/Mercedes-gla-5e.jpeg";
+import car5f from "@/assets/Mercedes-gla-5f.jpeg";
+import car5g from "@/assets/Mercedes-gla-5g.jpeg";
+import car5h from "@/assets/Mercedes-gla-5h.jpeg";
+import car5i from "@/assets/Mercedes-gla-5i.jpeg";
 import {
   Dialog,
   DialogContent,
