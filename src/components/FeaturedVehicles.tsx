@@ -47,7 +47,6 @@ const vehicles = [
     "Front/Rear Parking Sensors",
     "Side Steps"
   ],
-  // All your specific GLA images added here:
   images: [car5, car5b, car5c, car5d, car5e, car5f, car5g, car5h, car5i],
   specs: {
     engine: "1.3L 4-Cylinder Turbo",
@@ -57,9 +56,6 @@ const vehicles = [
     topSpeed: "210 km/h"
   }
 },
-
-
-
   {
     image: car1,
     name: "Executive S-Class",
