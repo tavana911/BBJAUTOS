@@ -3,7 +3,7 @@
 ## Plan Steps:
 - [x] Move `src/data/inventory.json` → `public/data/inventory.json` (data now served at `/data/inventory.json` in prod)
 - [x] Update `FeaturedVehicles.tsx`: `fetch('/src/data/inventory.json')` → `fetch('/data/inventory.json')`
-- [ ] Git commit & push: `git add . && git rm src/data/inventory.json && git commit -m "Fix inventory fetch for Vercel: move to public/data + update path" && git push` (triggers Vercel rebuild)
+- [x] Git commit & push: `git add . ; git rm src/data/inventory.json ; git commit -m "Fix car images on Vercel: move inventory.json to public/data/ + update fetch path in FeaturedVehicles.tsx" ; git push` ✅ (pushed to main, Vercel rebuilding)
 - [ ] Test prod: Visit Vercel URL, check Network tab (fetch `/data/inventory.json` 200, images load), Console (no fetch errors)
 - [ ] Local verify: `npm run build && npm run preview` → visit http://localhost:4173, confirm cars/images show
 
