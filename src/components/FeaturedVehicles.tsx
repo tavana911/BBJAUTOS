@@ -1,19 +1,5 @@
 import { motion } from "framer-motion";
-import { useState } from "react";
-import car1 from "@/assets/car-1.jpg";
-import car2 from "@/assets/car-2.jpg";
-import car3 from "@/assets/car-3.jpg";
-import car4 from "@/assets/car-4.jpg";
-import car5 from "@/assets/Mercedes-gla-5.jpeg";
-import car5a from "@/assets/Mercedes-gla-5a.jpeg";
-import car5b from "@/assets/Mercedes-gla-5b.jpeg";
-import car5c from "@/assets/Mercedes-gla-5c.jpeg";
-import car5d from "@/assets/Mercedes-gla-5d.jpeg";
-import car5e from "@/assets/Mercedes-gla-5e.jpeg";
-import car5f from "@/assets/Mercedes-gla-5f.jpeg";
-import car5g from "@/assets/Mercedes-gla-5g.jpeg";
-import car5h from "@/assets/Mercedes-gla-5h.jpeg";
-import car5i from "@/assets/Mercedes-gla-5i.jpeg";
+import { useState, useEffect } from "react";
 import {
   Dialog,
   DialogContent,
@@ -26,122 +12,42 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 
-const vehicles = [
-
-{
-  image: car5,
-  name: "Mercedes-Benz GLA 200",
-  price: "Price Upon Request", // Or enter your specific price here
-  tag: "GCC Specs",
-  year: "2023",
-  mileage: "10,000 km",
-  fuel: "Petrol",
-  transmission: "Automatic",
-  description: "Pristine 2023 Mercedes GLA 200 with GCC specifications. Features full Agency Warranty and Free Service contract until February 2028 or 105,000 km. This vehicle is loaded with premium options and a sport body kit.",
-  features: [
-    "2-Tone Leather Interior",
-    "Agency Warranty & Service (2028)",
-    "360 Degree Cameras",
-    "Panoramic Sunroof",
-    "Navigation & Bluetooth System",
-    "Sport System & Body Kit",
-    "Front/Rear Parking Sensors",
-    "Side Steps"
-  ],
-  images: [car5, car5a, car5b, car5c, car5d, car5e, car5f, car5g, car5h, car5i],
+interface Vehicle {
+  image: string;
+  name: string;
+  price: string;
+  tag: string;
+  year: string;
+  mileage: string;
+  fuel: string;
+  transmission: string;
+  description: string;
+  features: string[];
+  images: string[];
   specs: {
-    engine: "1.3L 4-Cylinder Turbo",
-    power: "163 hp",
-    torque: "250 Nm",
-    acceleration: "0-100 km/h in 8.7s",
-    topSpeed: "210 km/h"
-  }
-},
-  {
-    image: car1,
-    name: "Executive S-Class",
-    price: "€89,500",
-    tag: "Luxury Sedan",
-    year: "2023",
-    mileage: "15,000 km",
-    fuel: "Diesel",
-    transmission: "Automatic",
-    description: "The Mercedes-Benz S-Class represents the pinnacle of luxury automotive engineering. This executive sedan offers unparalleled comfort, cutting-edge technology, and sophisticated design.",
-    features: ["Premium Leather Interior", "Advanced Driver Assistance", "Burmester Sound System", "Air Suspension", "Panoramic Sunroof"],
-    images: [car1, car2, car3, car4], // Using existing images as placeholders
-    specs: {
-      engine: "3.0L V6 Turbo Diesel",
-      power: "286 hp",
-      torque: "600 Nm",
-      acceleration: "0-100 km/h in 6.4s",
-      topSpeed: "250 km/h (limited)"
-    }
-  },
-  {
-    image: car2,
-    name: "Sport 911 Targa",
-    price: "€124,900",
-    tag: "Sports Car",
-    year: "2022",
-    mileage: "8,500 km",
-    fuel: "Petrol",
-    transmission: "Manual",
-    description: "The iconic Porsche 911 Targa combines the thrill of a convertible with the structural integrity of a coupe. Experience pure driving dynamics with legendary performance.",
-    features: ["Targa Roof System", "Sport Chrono Package", "Adaptive Sports Seats", "PDK Transmission Option", "Carbon Fiber Interior"],
-    images: [car2, car1, car4, car3],
-    specs: {
-      engine: "3.0L Flat-6 Turbo",
-      power: "379 hp",
-      torque: "450 Nm",
-      acceleration: "0-100 km/h in 4.2s",
-      topSpeed: "293 km/h"
-    }
-  },
-  {
-    image: car3,
-    name: "Range Rover Sport",
-    price: "€95,000",
-    tag: "Premium SUV",
-    year: "2023",
-    mileage: "12,000 km",
-    fuel: "Diesel",
-    transmission: "Automatic",
-    description: "The Range Rover Sport delivers exceptional capability and luxury in an athletic package. Perfect for both urban adventures and off-road exploration.",
-    features: ["Terrain Response 2", "Premium Interior", "Advanced Tow Assist", "Meridian Sound System", "Adaptive Dynamics"],
-    images: [car3, car4, car1, car2],
-    specs: {
-      engine: "3.0L V6 Turbo Diesel",
-      power: "306 hp",
-      torque: "700 Nm",
-      acceleration: "0-100 km/h in 7.1s",
-      topSpeed: "210 km/h"
-    }
-  },
-  {
-    image: car4,
-    name: "M5 Competition",
-    price: "€112,800",
-    tag: "Performance",
-    year: "2022",
-    mileage: "9,200 km",
-    fuel: "Petrol",
-    transmission: "Automatic",
-    description: "The BMW M5 Competition represents the ultimate expression of performance and luxury. Experience the perfect blend of track-ready dynamics and everyday drivability.",
-    features: ["M Drive Professional", "Carbon Ceramic Brakes", "Adaptive M Suspension", "Harman Kardon Sound", "M Performance Seats"],
-    images: [car4, car3, car2, car1],
-    specs: {
-      engine: "4.4L V8 Twin-Turbo",
-      power: "625 hp",
-      torque: "750 Nm",
-      acceleration: "0-100 km/h in 3.3s",
-      topSpeed: "305 km/h (limited)"
-    }
-  },
-];
+    engine: string;
+    power: string;
+    torque: string;
+    acceleration: string;
+    topSpeed: string;
+  };
+}
 
 const FeaturedVehicles = () => {
-  const [selectedVehicle, setSelectedVehicle] = useState<typeof vehicles[0] | null>(null);
+  const [vehicles, setVehicles] = useState<Vehicle[]>([]);
+  const [selectedVehicle, setSelectedVehicle] = useState<Vehicle | null>(null);
   const [selectedImage, setSelectedImage] = useState(0);
+
+  useEffect(() => {
+    fetch('/src/data/inventory.json')
+      .then((response) => response.json())
+      .then((data: Vehicle[]) => setVehicles(data))
+      .catch((error) => console.error('Error loading inventory:', error));
+  }, []);
+
+  if (vehicles.length === 0) {
+    return null; // or loading spinner
+  }
 
   return (
     <section id="inventory" className="section-padding">
@@ -220,7 +126,7 @@ const FeaturedVehicles = () => {
                             </div>
 
                             {/* Thumbnail Images */}
-                            <div className="flex gap-2 overflow-x-auto">
+                            <div className="flex gap-2 overflow-x-auto pb-2">
                               {selectedVehicle.images.map((img, index) => (
                                 <button
                                   key={index}
