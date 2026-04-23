@@ -1,12 +1,11 @@
-# Task: Move Images to Public, Create inventory.json, Update FeaturedVehicles.tsx
+# Fix Car Images Not Displaying on Vercel
 
-## Steps to Complete (Approved Plan)
-- [x] Step 1: Create `public/inventory` directory and move car images from `src/assets/` to `public/inventory/` using CLI commands.
-- [x] Step 2: Create `src/data/inventory.json` with extracted vehicle data (updated image paths to `/inventory/...`).
-- [x] Step 3: Replace entire content of `src/components/FeaturedVehicles.tsx` to use JSON data (remove imports, add fetch).
-- [ ] Step 4: Test with `npm run dev` (provide command). Verify images load, modal works.
-- [x] Step 5: Clean up empty `src/assets/car-*` if needed, attempt_completion.
+## Plan Steps:
+- [x] Move `src/data/inventory.json` → `public/data/inventory.json` (data now served at `/data/inventory.json` in prod)
+- [x] Update `FeaturedVehicles.tsx`: `fetch('/src/data/inventory.json')` → `fetch('/data/inventory.json')`
+- [ ] Git commit & push: `git add . && git rm src/data/inventory.json && git commit -m "Fix inventory fetch for Vercel: move to public/data + update path" && git push` (triggers Vercel rebuild)
+- [ ] Test prod: Visit Vercel URL, check Network tab (fetch `/data/inventory.json` 200, images load), Console (no fetch errors)
+- [ ] Local verify: `npm run build && npm run preview` → visit http://localhost:4173, confirm cars/images show
 
-Progress will be updated after each step.
-**Note: All core changes complete. Run dev server to test.**
-
+## Next:
+Run the git command above to deploy the fix to Vercel.
