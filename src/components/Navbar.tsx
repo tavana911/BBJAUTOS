@@ -1,13 +1,15 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import logo from "@/assets/bbj-logo.png";
 
 const navLinks = [
-  { label: "Home", href: "#home" },
-  { label: "Inventory", href: "#inventory" },
-  { label: "Services", href: "#services" },
-  { label: "About", href: "#about" },
-  { label: "Contact", href: "#contact" },
+  { label: "Home", href: "/", type: "link" },
+  { label: "Inventory", href: "/#inventory", type: "anchor" },
+  { label: "Services", href: "/#services", type: "anchor" },
+  { label: "About", href: "/#about", type: "anchor" },
+  { label: "Contact", href: "/#contact", type: "anchor" },
+  { label: "Rentals", href: "/rentals", type: "link" },
 ];
 
 const Navbar = () => {
@@ -35,16 +37,25 @@ const Navbar = () => {
         <ul className="hidden md:flex items-center gap-8">
           {navLinks.map((link) => (
             <li key={link.href}>
-              <a
-                href={link.href}
-                className="font-body text-sm uppercase tracking-widest text-muted-foreground hover:text-primary transition-colors duration-300"
-              >
-                {link.label}
-              </a>
+              {link.type === "link" ? (
+                <Link
+                  to={link.href}
+                  className="font-body text-sm uppercase tracking-widest text-muted-foreground hover:text-primary transition-colors duration-300"
+                >
+                  {link.label}
+                </Link>
+              ) : (
+                <a
+                  href={link.href}
+                  className="font-body text-sm uppercase tracking-widest text-muted-foreground hover:text-primary transition-colors duration-300"
+                >
+                  {link.label}
+                </a>
+              )}
             </li>
           ))}
           <li>
-            <a href="#contact" className="btn-gold text-xs">Book Test Drive</a>
+            <a href="/#contact" className="btn-gold text-xs">Book Test Drive</a>
           </li>
         </ul>
 
@@ -63,17 +74,27 @@ const Navbar = () => {
           <ul className="flex flex-col items-center gap-6 py-8">
             {navLinks.map((link) => (
               <li key={link.href}>
-                <a
-                  href={link.href}
-                  className="font-body text-sm uppercase tracking-widest text-muted-foreground hover:text-primary transition-colors"
-                  onClick={() => setMobileOpen(false)}
-                >
-                  {link.label}
-                </a>
+                {link.type === "link" ? (
+                  <Link
+                    to={link.href}
+                    className="font-body text-sm uppercase tracking-widest text-muted-foreground hover:text-primary transition-colors"
+                    onClick={() => setMobileOpen(false)}
+                  >
+                    {link.label}
+                  </Link>
+                ) : (
+                  <a
+                    href={link.href}
+                    className="font-body text-sm uppercase tracking-widest text-muted-foreground hover:text-primary transition-colors"
+                    onClick={() => setMobileOpen(false)}
+                  >
+                    {link.label}
+                  </a>
+                )}
               </li>
             ))}
             <li>
-              <a href="#contact" className="btn-gold text-xs" onClick={() => setMobileOpen(false)}>
+              <a href="/#contact" className="btn-gold text-xs" onClick={() => setMobileOpen(false)}>
                 Book Test Drive
               </a>
             </li>

@@ -39,7 +39,7 @@ const FeaturedVehicles = () => {
   const [selectedImage, setSelectedImage] = useState(0);
 
   useEffect(() => {
-fetch('/data/inventory.json')
+    fetch('/data/inventory.json')
       .then((response) => response.json())
       .then((data: Vehicle[]) => setVehicles(data))
       .catch((error) => console.error('Error loading inventory:', error));

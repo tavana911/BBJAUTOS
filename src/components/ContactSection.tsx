@@ -114,7 +114,7 @@ const ContactSection = () => {
                 </div>
                 <div>
                   <h4 className="font-display font-semibold mb-1">Email</h4>
-                  <a href="mailto:Bbjagoautos@gmail.com" className="text-muted-foreground font-body text-sm hover:text-primary transition-colors">Bbjagoautos@gmail.com</a>
+                  <a href="mailto:info@bbjautos.com" className="text-muted-foreground font-body text-sm hover:text-primary transition-colors">info@bbjautos.com</a>
                 </div>
               </div>
               <div className="flex items-start gap-4">
