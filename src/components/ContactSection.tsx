@@ -50,6 +50,12 @@ const ContactSection = () => {
             ref={formRef}
             className="glass-card rounded-lg p-8 space-y-6"
           >
+            <div className="space-y-4">
+              <p className="text-sm text-muted-foreground">
+                WhatsApp is the fastest way to ask about cars, schedule a test drive, or get instant booking assistance.
+                Use the form below as your secondary channel for a formal text-only inquiry without opening a chat app.
+              </p>
+            </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <input
                 type="text"
@@ -114,7 +120,10 @@ const ContactSection = () => {
                 </div>
                 <div>
                   <h4 className="font-display font-semibold mb-1">Email</h4>
-                  <a href="mailto:info@bbjautos.com" className="text-muted-foreground font-body text-sm hover:text-primary transition-colors">info@bbjautos.com</a>
+                  <p className="text-muted-foreground font-body text-sm">info@bbjautos.com</p>
+                  <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground/80 mt-2">
+                    Secondary channel: use the form above for formal text-only enquiries.
+                  </p>
                 </div>
               </div>
               <div className="flex items-start gap-4">
