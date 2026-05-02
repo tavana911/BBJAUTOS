@@ -45,7 +45,7 @@ const App = () => (
 
         {/* --- FLOATING WHATSAPP BUTTON START --- */}
         <a
-          href="https://wa.me/2348012345678?text=Hello! I'm visiting your website and would like to inquire about your vehicles."
+          href="https://wa.me/2347078236267?text=Hello! I'm visiting your website and would like to inquire about your vehicles."
           target="_blank"
           rel="noopener noreferrer"
           className="fixed bottom-6 right-6 z-50 bg-[#25D366] p-4 rounded-full shadow-lg hover:scale-110 transition-transform flex items-center justify-center"

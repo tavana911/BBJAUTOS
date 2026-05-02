@@ -32,7 +32,7 @@ Additional Notes: ${formData.notes || 'None'}`;
 
     // Replace with the actual business number (e.g., 2348012345678)
     const encodedMessage = encodeURIComponent(message);
-    window.open(`https://wa.me/2340000000000?text=${encodedMessage}`, '_blank');
+    window.open(`https://wa.me/2347078236267?text=${encodedMessage}`, '_blank');
   };
 
   return (
