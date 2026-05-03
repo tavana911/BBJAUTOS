@@ -67,7 +67,7 @@ const Rentals = () => {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6 }}
-                  href="https://wa.me/2347078236267?text=Hello! I would like to book a premium rental."
+                  href="https://wa.me/2347078236267?text=Hello!%20I%20would%20like%20to%20book%20a%20premium%20rental."
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center justify-center rounded-full bg-emerald-500 px-10 py-4 text-sm font-semibold uppercase tracking-[0.18em] text-white shadow-lg shadow-emerald-500/20 transition-transform duration-300 hover:-translate-y-1"
