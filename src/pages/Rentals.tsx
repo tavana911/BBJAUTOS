@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import heroBg from "@/assets/hero-bg.jpg";
 import AirportTransferBooking from "@/components/AirportTransferBooking";
+import RentalBookingForm from "@/components/RentalBookingForm";
 
 const features = [
   {
@@ -67,9 +68,7 @@ const Rentals = () => {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6 }}
-                  href="https://wa.me/2347078236267?text=Hello!%20I%20would%20like%20to%20book%20a%20premium%20rental."
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href="#rental-booking"
                   className="inline-flex items-center justify-center rounded-full bg-emerald-500 px-10 py-4 text-sm font-semibold uppercase tracking-[0.18em] text-white shadow-lg shadow-emerald-500/20 transition-transform duration-300 hover:-translate-y-1"
                 >
                   Book a Rental
@@ -93,36 +92,44 @@ const Rentals = () => {
                   ))}
                 </div>
               </div>
-
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-                className="relative overflow-hidden rounded-[2rem] border border-slate-200 bg-slate-950 shadow-2xl shadow-slate-900/20"
-              >
-                <img src="/inventory/GLE-63-1.jpeg" alt="Mercedes-AMG GLE 63 S rental" className="h-[520px] w-full object-cover object-center" />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-transparent to-transparent" />
-                <div className="absolute bottom-6 left-6 right-6 rounded-3xl border border-white/10 bg-slate-950/80 p-5 text-white backdrop-blur-sm">
-                  <p className="text-xs uppercase tracking-[0.35em] text-slate-300">Featured Rental</p>
-                  <h2 className="mt-3 text-2xl font-semibold">Mercedes-AMG GLE 63 S 4MATIC+</h2>
-                  <div className="mt-4 grid gap-3 sm:grid-cols-3 text-sm text-slate-200">
-                    <div>
-                      <p className="text-slate-400">Power</p>
-                      <p className="mt-1 font-semibold">603 hp</p>
-                    </div>
-                    <div>
-                      <p className="text-slate-400">0-100 km/h</p>
-                      <p className="mt-1 font-semibold">3.8s</p>
-                    </div>
-                    <div>
-                      <p className="text-slate-400">Top Speed</p>
-                      <p className="mt-1 font-semibold">280 km/h</p>
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
             </div>
           </div>
+        </div>
+      </section>
+
+      <section id="rental-booking" className="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:px-8">
+        <RentalBookingForm />
+      </section>
+
+      <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:px-8">
+        <div className="grid gap-6 lg:grid-cols-[0.95fr_0.8fr] lg:items-center">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="relative overflow-hidden rounded-[2rem] border border-slate-200 bg-slate-950 shadow-2xl shadow-slate-900/20"
+          >
+            <img src="/inventory/GLE-63-1.jpeg" alt="Mercedes-AMG GLE 63 S rental" className="h-[520px] w-full object-cover object-center" />
+            <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-transparent to-transparent" />
+            <div className="absolute bottom-6 left-6 right-6 rounded-3xl border border-white/10 bg-slate-950/80 p-5 text-white backdrop-blur-sm">
+              <p className="text-xs uppercase tracking-[0.35em] text-slate-300">Featured Rental</p>
+              <h2 className="mt-3 text-2xl font-semibold">Mercedes-AMG GLE 63 S 4MATIC+</h2>
+              <div className="mt-4 grid gap-3 sm:grid-cols-3 text-sm text-slate-200">
+                <div>
+                  <p className="text-slate-400">Power</p>
+                  <p className="mt-1 font-semibold">603 hp</p>
+                </div>
+                <div>
+                  <p className="text-slate-400">0-100 km/h</p>
+                  <p className="mt-1 font-semibold">3.8s</p>
+                </div>
+                <div>
+                  <p className="text-slate-400">Top Speed</p>
+                  <p className="mt-1 font-semibold">280 km/h</p>
+                </div>
+              </div>
+            </div>
+          </motion.div>
         </div>
       </section>
 
