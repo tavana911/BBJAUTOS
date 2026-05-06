@@ -1,6 +1,6 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -10,6 +10,82 @@ import NotFound from "./pages/NotFound.tsx";
 import AdminPage from "./pages/admin.tsx";
 
 const queryClient = new QueryClient();
+
+function AdminPasswordGate({ children }: { children: React.ReactNode }) {
+  const [password, setPassword] = useState("");
+  const [unlocked, setUnlocked] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const expectedPassword = useMemo(() => {
+    // Admin password (hardcoded) as requested.
+    // You can still override via env by setting VITE_ADMIN_PASSWORD / VITE_ADMIN_PASS.
+    const p1 = import.meta.env.VITE_ADMIN_PASSWORD as string | undefined;
+    const p2 = import.meta.env.VITE_ADMIN_PASS as string | undefined;
+    return p1 ?? p2 ?? 'Rahmon2026$';
+  }, []);
+
+  useEffect(() => {
+    // Keep locked unless configured.
+    if (!expectedPassword) {
+      setUnlocked(false);
+    }
+  }, [expectedPassword]);
+
+  if (unlocked && expectedPassword) return <>{children}</>;
+
+  return (
+    <div className="min-h-screen flex items-center justify-center bg-background px-4">
+      <div className="w-full max-w-md rounded-xl border bg-card p-6 shadow-sm">
+        <h1 className="font-display text-2xl font-bold mb-2">Admin Access</h1>
+        <p className="text-sm text-muted-foreground mb-4">
+          Enter the admin password to continue.
+        </p>
+
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            setError(null);
+
+            if (!expectedPassword) {
+              setError("Admin password is not configured.");
+              return;
+            }
+
+            if (password === expectedPassword) {
+              setUnlocked(true);
+              setPassword("");
+              return;
+            }
+
+            setError("Incorrect password.");
+          }}
+          className="space-y-3"
+        >
+          <label className="block">
+            <span className="text-sm font-medium">Password</span>
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="mt-1 w-full rounded-md border bg-background px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-primary"
+              placeholder="Enter password"
+              autoComplete="current-password"
+            />
+          </label>
+
+          {error && <div className="text-sm text-destructive">{error}</div>}
+
+          <button
+            type="submit"
+            className="w-full rounded-md bg-primary px-3 py-2 text-sm font-semibold text-primary-foreground hover:opacity-90 transition"
+          >
+            Unlock
+          </button>
+        </form>
+      </div>
+    </div>
+  );
+}
 
 const ScrollToHash = () => {
   const { pathname, hash } = useLocation();
@@ -40,7 +116,14 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/rentals" element={<Rentals />} />
-          <Route path="/admin" element={<AdminPage />} />
+          <Route
+            path="/admin"
+            element={
+              <AdminPasswordGate>
+                <AdminPage />
+              </AdminPasswordGate>
+            }
+          />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

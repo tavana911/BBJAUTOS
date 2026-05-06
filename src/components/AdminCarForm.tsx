@@ -16,17 +16,41 @@ import { cn } from '@/lib/utils';
 
 const formSchema = z.object({
   name: z.string().min(1, 'Name is required'),
-  rentalPrice: z.coerce.number().positive('Price must be positive'),
+  rentalPrice: z.string().min(1, 'Price is required'),
   tagCategory: z.string().min(1, 'Tag category is required'),
   year: z.coerce.number().min(1900).max(2030, 'Invalid year'),
   mileage: z.coerce.number().min(0, 'Mileage cannot be negative'),
   fuelType: z.enum(['Gasoline', 'Diesel', 'Electric', 'Hybrid']),
   transmission: z.enum(['Automatic', 'Manual']),
   description: z.string().min(10, 'Description must be at least 10 characters'),
-  image: z.any().optional(),
+  images: z.array(z.any()).optional(),
 });
 
 export type FormValues = z.infer<typeof formSchema>;
+
+async function uploadImages(files: File[]): Promise<string[]> {
+  const imageUrls: string[] = [];
+  for (let i = 0; i < files.length; i++) {
+    const file = files[i];
+    const fileExt = file.name.split('.').pop();
+    const fileName = `${crypto.randomUUID()}-${i}.${fileExt}`;
+    console.log(`Uploading file ${i + 1}:`, fileName);
+    const { data, error: uploadError } = await supabase.storage
+      .from('car-images')
+      .upload(fileName, file, { upsert: true });
+
+    if (uploadError) {
+      console.error('Upload error:', uploadError);
+      throw uploadError;
+    }
+    const { data: { publicUrl } } = supabase.storage
+      .from('car-images')
+      .getPublicUrl(data!.path);
+    imageUrls.push(publicUrl);
+    console.log(`Image ${i + 1} URL:`, publicUrl);
+  }
+  return imageUrls;
+}
 
 const AdminCarForm: React.FC = () => {
   const [loading, setLoading] = useState(false);
@@ -49,43 +73,27 @@ const AdminCarForm: React.FC = () => {
   const onSubmit = async (values: FormValues) => {
     setLoading(true);
     try {
-      // Debug: Log form values
       console.log('Form values:', values);
 
-      const imageFile = form.getValues('image') as File | null;
-      console.log('Image file:', imageFile);
+      const imagesFiles = form.getValues('images') as File[];
+      console.log('Images files:', imagesFiles);
 
-      let imageUrl = '';
+      let imageUrls: string[] = [];
 
-      if (imageFile) {
-        const fileExt = imageFile.name.split('.').pop();
-        const fileName = `${crypto.randomUUID()}.${fileExt}`;
-        console.log('Uploading file:', fileName);
-        const { data, error: uploadError } = await supabase.storage
-          .from('car-images')
-          .upload(fileName, imageFile, { upsert: true });
-
-        if (uploadError) {
-          console.error('Upload error:', uploadError);
-          throw uploadError;
-        }
-        const { data: { publicUrl } } = supabase.storage
-          .from('car-images')
-          .getPublicUrl(data.path);
-        imageUrl = publicUrl;
-        console.log('Image URL:', imageUrl);
+      if (imagesFiles && imagesFiles.length > 0) {
+        imageUrls = await uploadImages(imagesFiles);
       }
 
       const payload = {
         name: values.name,
-        rental_price: Number(values.rentalPrice),
-        tag_category: values.tagCategory,
+        price: values.rentalPrice,
+        tag: values.tagCategory,
         year: Number(values.year),
         mileage: Number(values.mileage),
         fuel_type: values.fuelType,
         transmission: values.transmission,
         description: values.description,
-        image_url: imageUrl,
+        image_url: imageUrls,
       };
       console.log('Insert payload:', payload);
 
@@ -142,9 +150,9 @@ const AdminCarForm: React.FC = () => {
                 name="rentalPrice"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Rental Price ($/day)</FormLabel>
+                    <FormLabel>Price</FormLabel>
                     <FormControl>
-                      <Input type="number" placeholder="250" {...field} />
+              <Input placeholder="250 or 'Call'" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -251,17 +259,17 @@ const AdminCarForm: React.FC = () => {
             />
             <FormField
               control={form.control}
-              name="image"
+              name="images"
               render={() => (
                 <FormItem>
-                  <FormLabel>Image</FormLabel>
+                  <FormLabel>Images</FormLabel>
                   <FormControl>
-                    <Input type="file" accept="image/*" onChange={(e) => {
-                      const file = e.target.files?.[0];
-                      form.setValue('image', file || null);
+                    <Input multiple type="file" accept="image/*" onChange={(e) => {
+                      const files = Array.from(e.target.files || []);
+                      form.setValue('images', files);
                     }} />
                   </FormControl>
-                  <FormDescription>Upload a high-quality image (max 5MB recommended).</FormDescription>
+                  <FormDescription>Upload multiple high-quality images (max 5MB each).</FormDescription>
                 </FormItem>
               )}
             />
@@ -286,4 +294,3 @@ const AdminCarForm: React.FC = () => {
 };
 
 export default AdminCarForm;
-

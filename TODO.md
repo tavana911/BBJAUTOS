@@ -1,11 +1,10 @@
-# Admin Car Form Implementation TODO
+## TODO
+- [x] Inspect current `CarListing.tsx`, `AdminCarForm.tsx`, and `supabase.ts` for image/tag usage
+- [ ] Update `src/components/CarListing.tsx`:
+  - [x] Implement URL normalization + Supabase absolute URL handling
+  - [x] Add `onError` fallback to `car.image` then `/placeholder.svg`
+  - [x] Ensure badge uses `car.tag` with fallback to `car.tag_category`
+- [x] Run dev/typecheck/build (if scripts exist) and verify images render
 
-## Plan Steps:
-1. ✅ Create `src/components/AdminCarForm.tsx` - Self-contained form with fields, Supabase upload/insert, loading/success/error states.
-2. ✅ Create `src/pages/admin.tsx` - Admin page layout with back link and form.
-3. ✅ Add `/admin` route to `src/App.tsx`.
-4. ✅ Tested: `npm run dev` running, visit http://localhost:5173/admin to submit form (ensure Supabase 'cars' table & 'car-images' bucket ready).
-5. [ ] Optional: Add admin auth check.
 
-**Status:** Complete! Dev server active.
 

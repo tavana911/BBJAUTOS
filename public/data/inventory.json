@@ -27,7 +27,6 @@
     "images": ["/inventory/GLE-63-1.jpeg","/inventory/GLE-63-2.jpeg","/inventory/GLE-63-3.jpeg","/inventory/GLE-63-4.jpeg","/inventory/GLE-63-5.jpeg","/inventory/GLE-63-6.jpeg"],
     "specs": {"engine":"4.0L V8 Biturbo","power":"603 hp","torque":"850 Nm","acceleration":"0-100 km/h in 3.8s","topSpeed":"280 km/h"}
   },
-  
   {
     "image": "/inventory/amg-53-1.jpg",
     "name": "Mercedes-AMG GLE 53 4MATIC+",
@@ -80,7 +79,7 @@
       "22-inch AMG Multi-Spoke Wheels"
     ],
     "images": [
-      "/inventory/gls-580-1.jpg", "/inventory/gls-580-2.jpg", "/inventory/gls-580-3.jpg", "/inventory/gls-580-4.jpg", "/inventory/gls-580-7.jpg", "/inventory/gls-580-8.jpg", "/inventory/gls-580-9.jpg", "/inventory/gls-580-10.jpg", "/inventory/gls-580-11.jpg", "/inventory/gls-580-12.jpg", "/inventory/gls-580-13.jpg", "/inventory/gls-580-14.jpg"
+      "/inventory/gls-580-1.jpg", "/inventory/gls-580-2.jpg", "/inventory/gls-580-3.jpg", "/inventory/gls-580-4.jpg", "/inventory/gls-580-7.jpg", "/inventory/gls-580-8.jpg", "/inventory/gls-580-10.jpg", "/inventory/gls-580-11.jpg", "/inventory/gls-580-12.jpg", "/inventory/gls-580-13.jpg", "/inventory/gls-580-14.jpg"
     ],
     "specs": {
       "engine": "4.0L V8 Biturbo with EQ Boost",
@@ -88,6 +87,37 @@
       "torque": "700 Nm",
       "acceleration": "0-100 km/h in 5.2s",
       "topSpeed": "250 km/h"
+    }
+  },
+  {
+    "id": 4,
+    "image": "/inventory/lambo-u-1.jpg",
+    "name": "Lamborghini Urus",
+    "price": "Price Upon Request",
+    "tag": "Luxury",
+    "year": "2026",
+    "mileage": "0 km",
+    "fuel": "Petrol",
+    "transmission": "Automatic",
+    "description": "The Matte Black Lamborghini Urus is the ultimate fusion of supercar performance and luxury SUV practicality.",
+    "features": [
+      "Alcantara & Carbon-Fiber Trim",
+      "High-Performance Red Brake Calipers",
+      "All-Wheel Drive (AWD)"
+    ],
+    "images": [
+      "/inventory/lambo-u-1.jpg",
+      "/inventory/lambo-u-2.jpg",
+      "/inventory/lambo-u-3.jpg",
+      "/inventory/lambo-u-4.jpg",
+      "/inventory/lambo-u-5.jpg"
+    ],
+    "specs": {
+      "engine": "4.0L Twin-Turbo V8",
+      "power": "641 hp",
+      "torque": "850 Nm",
+      "acceleration": "0-100 km/h in 3.6s",
+      "topSpeed": "305 km/h"
     }
   }
 ]
