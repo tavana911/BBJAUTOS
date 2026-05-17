@@ -6,7 +6,13 @@ import type { Database } from "@/integrations/supabase/types";
 
 export type CarSummary = Database["public"]["Tables"]["cars"]["Row"];
 
-export function CarCard({ car }: { car: CarSummary }) {
+export type Car = Omit<CarSummary, "mileage"> & {
+  mileage?: number | string | null;
+  condition?: string | null;
+  fuel?: string | null;
+};
+
+export function CarCard({ car }: { car: Car }) {
   return (
     <Link
       to="/cars/$carId"
@@ -88,3 +94,5 @@ function Spec({ icon, label, value }: { icon: React.ReactNode; label: string; va
     </div>
   );
 }
+
+

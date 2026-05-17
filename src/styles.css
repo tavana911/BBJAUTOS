@@ -54,7 +54,7 @@
   --obsidian: oklch(0.13 0.005 270);   /* #050505 */
   --slate-deep: oklch(0.21 0.035 265); /* #0F172A */
   --ice: oklch(0.985 0.003 250);       /* #F8FAFC */
-  --ember: oklch(0.68 0.22 38);        /* #FF4500 */
+  --ember: #122cc4;                    /* #122cc4 */
 
   --background: var(--obsidian);
   --foreground: var(--ice);
@@ -154,3 +154,4 @@
                 0 14px 50px -22px color-mix(in oklab, var(--ember) 50%, transparent);
   }
 }
+
