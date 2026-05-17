@@ -1,0 +1,157 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * BBJ Autos — Midnight Luxe design system.
+ * Obsidian Black #050505, Deep Slate #0F172A, Ice White #F8FAFC, Vivid Orange #FF4500.
+ * Type: Montserrat (display) + Inter (body).
+ */
+
+@theme inline {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Montserrat", "Inter", ui-sans-serif, system-ui, sans-serif;
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-ring-offset-background: var(--background);
+  --color-obsidian: var(--obsidian);
+  --color-slate-deep: var(--slate-deep);
+  --color-ice: var(--ice);
+  --color-ember: var(--ember);
+}
+
+:root {
+  --radius: 0.875rem;
+
+  --obsidian: oklch(0.13 0.005 270);   /* #050505 */
+  --slate-deep: oklch(0.21 0.035 265); /* #0F172A */
+  --ice: oklch(0.985 0.003 250);       /* #F8FAFC */
+  --ember: oklch(0.68 0.22 38);        /* #FF4500 */
+
+  --background: var(--obsidian);
+  --foreground: var(--ice);
+
+  --card: oklch(0.18 0.02 265);
+  --card-foreground: var(--ice);
+
+  --popover: oklch(0.18 0.02 265);
+  --popover-foreground: var(--ice);
+
+  --primary: var(--ember);
+  --primary-foreground: var(--ice);
+
+  --secondary: var(--slate-deep);
+  --secondary-foreground: var(--ice);
+
+  --muted: oklch(0.22 0.025 265);
+  --muted-foreground: oklch(0.72 0.02 260);
+
+  --accent: var(--ember);
+  --accent-foreground: var(--ice);
+
+  --destructive: oklch(0.62 0.22 25);
+  --destructive-foreground: var(--ice);
+
+  --border: oklch(1 0 0 / 8%);
+  --input: oklch(1 0 0 / 12%);
+  --ring: var(--ember);
+}
+
+.dark {
+  --background: var(--obsidian);
+  --foreground: var(--ice);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  html, body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3, h4, .font-display {
+    font-family: var(--font-display);
+    letter-spacing: -0.01em;
+  }
+
+  ::selection {
+    background-color: var(--ember);
+    color: var(--ice);
+  }
+}
+
+@layer utilities {
+  .glass {
+    background: color-mix(in oklab, var(--obsidian) 55%, transparent);
+    backdrop-filter: blur(14px) saturate(140%);
+    -webkit-backdrop-filter: blur(14px) saturate(140%);
+    border: 1px solid color-mix(in oklab, var(--ice) 10%, transparent);
+  }
+
+  .glass-strong {
+    background: color-mix(in oklab, var(--obsidian) 75%, transparent);
+    backdrop-filter: blur(20px) saturate(160%);
+    -webkit-backdrop-filter: blur(20px) saturate(160%);
+    border: 1px solid color-mix(in oklab, var(--ice) 12%, transparent);
+  }
+
+  .gradient-cinematic {
+    background-image:
+      radial-gradient(60% 50% at 50% 0%, color-mix(in oklab, var(--ember) 18%, transparent) 0%, transparent 70%),
+      linear-gradient(180deg, var(--slate-deep) 0%, var(--obsidian) 70%);
+  }
+
+  .text-gradient-ember {
+    background: linear-gradient(120deg, var(--ice) 0%, var(--ice) 55%, var(--ember) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .tracking-display {
+    letter-spacing: 0.18em;
+  }
+
+  .shadow-ember {
+    box-shadow: 0 18px 60px -18px color-mix(in oklab, var(--ember) 60%, transparent);
+  }
+
+  .ring-ember-soft {
+    box-shadow: 0 0 0 1px color-mix(in oklab, var(--ember) 35%, transparent),
+                0 14px 50px -22px color-mix(in oklab, var(--ember) 50%, transparent);
+  }
+}
+/* fresh deploy test */
