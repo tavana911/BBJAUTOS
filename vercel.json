@@ -1,21 +1,7 @@
 {
   "version": 2,
-  "framework": "vite",
-  "builds": [
-    {
-      "src": ".vinxi/build/**",
-      "use": "@vercel/node"
-    }
-  ],
   "routes": [
-    {
-      "src": "/_msw/(.*)",
-      "dest": "/_msw/$1"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/.vinxi/build/$1",
-      "check": true
-    }
+    { "handle": "filesystem" },
+    { "src": "/(.*)", "dest": "/index.html" }
   ]
 }
