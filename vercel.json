@@ -1,6 +1,11 @@
 {
   "version": 2,
-  "rewrites": [
-    { "source": "/(.*)", "destination": "/index.html" }
+  "functions": {
+    "dist/server/server.js": {
+      "runtime": "edge"
+    }
+  },
+  "routes": [
+    { "src": "/(.*)", "dest": "/dist/server/server.js" }
   ]
 }
