@@ -1,3 +1,4 @@
+cat << 'EOF' > package.json
 {
   "name": "tanstack_start_ts",
   "private": true,
@@ -5,7 +6,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite dev",
-    "build": "NITRO_PRESET=vercel bun x vinxi build",
+    "build": "NITRO_PRESET=vercel npx vinxi build",
     "build:dev": "vite build --mode development",
     "preview": "vite preview",
     "lint": "eslint .",
@@ -85,3 +86,4 @@
     "vite": "^7.3.1"
   }
 }
+EOF
