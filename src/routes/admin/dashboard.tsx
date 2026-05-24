@@ -57,7 +57,7 @@ export function AdminDashboard() {
   const [rentalCars, setRentalCars] = useState<RentalVehicle[]>([]);
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
-  const [imageFile, setImageFile] = useState<File | null>(null);
+  const [imageFiles, setImageFiles] = useState<File[]>([]);
 
   // Unified Form State for all columns
   const [form, setForm] = useState<AdminFormState>({
@@ -125,31 +125,37 @@ export function AdminDashboard() {
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (!imageFile) {
-      toast.error("Please drop a presentation showcase image.");
+    if (imageFiles.length === 0) {
+      toast.error("Please add at least one presentation image.");
       return;
     }
 
     setSubmitting(true);
     try {
-      // 1. Upload to assets bucket
-      const fileExt = imageFile.name.split(".").pop() ?? "jpg";
-      const fileName = `${crypto.randomUUID()}.${fileExt.toLowerCase()}`;
-      const { error: uploadError } = await supabase.storage
-        .from("car-images")
-        .upload(fileName, imageFile);
+      const uploadedUrls: string[] = [];
 
-      if (uploadError) throw uploadError;
+      for (const file of imageFiles) {
+        const fileExt = file.name.split(".").pop() ?? "jpg";
+        const fileName = `${crypto.randomUUID()}.${fileExt.toLowerCase()}`;
+        const { error: uploadError } = await supabase.storage
+          .from("car-images")
+          .upload(fileName, file);
 
-      const { data: publicUrlData } = await supabase.storage
-        .from("car-images")
-        .getPublicUrl(fileName);
+        if (uploadError) throw uploadError;
 
-      if (!publicUrlData?.publicUrl) {
-        throw new Error("Unable to generate public image URL.");
+        const { data: publicUrlData } = await supabase.storage
+          .from("car-images")
+          .getPublicUrl(fileName);
+
+        if (!publicUrlData?.publicUrl) {
+          throw new Error("Unable to generate public image URL.");
+        }
+
+        uploadedUrls.push(publicUrlData.publicUrl);
       }
 
-      const publicUrl = publicUrlData.publicUrl;
+      const heroImageUrl = uploadedUrls[0];
+      const galleryUrls = uploadedUrls.slice(1);
 
       const parsedPrice = Number(form.price);
       const parsedYear = Number(form.year);
@@ -167,7 +173,8 @@ export function AdminDashboard() {
           category: form.category,
           price: Number.isFinite(parsedPrice) && parsedPrice > 0 ? parsedPrice : 0,
           currency: "AED",
-          hero_image: publicUrl,
+          hero_image: heroImageUrl,
+          gallery: galleryUrls,
           zero_to_sixty: form.zero_to_sixty || "—",
           engine: form.engine || "—",
           transmission: form.transmission as Database["public"]["Tables"]["cars"]["Insert"]["transmission"],
@@ -188,7 +195,8 @@ export function AdminDashboard() {
           transmission: form.transmission as Database["public"]["Tables"]["rentals"]["Insert"]["transmission"],
           fuel_type: (form.fuel_type || null) as Database["public"]["Tables"]["rentals"]["Insert"]["fuel_type"],
           description: form.description || "",
-          hero_image: publicUrl,
+          hero_image: heroImageUrl,
+          gallery: galleryUrls,
           available: true,
           currency: "AED",
           rental_type: "self-drive" as Database["public"]["Tables"]["rentals"]["Insert"]["rental_type"],
@@ -394,12 +402,33 @@ export function AdminDashboard() {
           </div>
 
           <div>
-            <label className="text-xs text-muted-foreground">Studio Presentation Image</label>
-            <div className="mt-1.5 relative border border-dashed border-white/10 rounded-xl p-4 bg-white/[0.02] flex flex-col items-center justify-center hover:bg-white/[0.04] transition group cursor-pointer">
-              <input type="file" accept="image/*" onChange={(e) => setImageFile(e.target.files ? e.target.files[0] : null)} className="absolute inset-0 opacity-0 cursor-pointer" />
-              <ImagePlus className="h-5 w-5 text-muted-foreground group-hover:text-ember transition mb-1" />
-              <p className="text-xs text-muted-foreground text-center truncate w-full max-w-xs">{imageFile ? imageFile.name : "Select Showcase Image"}</p>
+            <label className="text-xs text-muted-foreground">Upload Vehicle Images</label>
+            <div className="mt-1.5 relative border border-dashed border-white/10 rounded-xl p-4 bg-white/[0.02] hover:bg-white/[0.04] transition group cursor-pointer">
+              <input
+                type="file"
+                accept="image/png,image/jpeg,image/jpg"
+                multiple
+                onChange={(e) => setImageFiles(e.target.files ? Array.from(e.target.files) : [])}
+                className="absolute inset-0 opacity-0 cursor-pointer"
+              />
+              <div className="flex flex-col items-center justify-center gap-2">
+                <ImagePlus className="h-5 w-5 text-muted-foreground group-hover:text-ember transition" />
+                <p className="text-xs text-muted-foreground text-center">Select one or more JPG/PNG images for this listing.</p>
+                <p className="text-[11px] text-muted-foreground max-w-xs text-center">The first selected image becomes the hero image; additional files become the gallery.</p>
+              </div>
             </div>
+            {imageFiles.length > 0 && (
+              <div className="mt-3 grid grid-cols-2 gap-2 text-[11px] text-muted-foreground">
+                {imageFiles.slice(0, 4).map((file) => (
+                  <div key={file.name + file.size} className="rounded-xl border border-white/10 bg-white/[0.03] p-2 truncate">
+                    {file.name}
+                  </div>
+                ))}
+                {imageFiles.length > 4 && (
+                  <div className="rounded-xl border border-white/10 bg-white/[0.03] p-2 text-center">+{imageFiles.length - 4} more</div>
+                )}
+              </div>
+            )}
           </div>
 
           <button disabled={submitting} className="w-full mt-2 rounded-full bg-ember px-6 py-3.5 text-sm font-medium text-ice hover:brightness-110 transition flex items-center justify-center gap-2 disabled:opacity-50">
