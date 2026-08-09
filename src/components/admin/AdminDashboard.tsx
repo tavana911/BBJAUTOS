@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useQueryClient } from "@tanstack/react-query";
 import { Car, CheckCircle, ImagePlus, Loader2, Plus, Trash2 } from "lucide-react";
 import { useNavigate } from "@tanstack/react-router";
 import { toast } from "sonner";
@@ -66,6 +67,7 @@ const initialFormState: AdminFormState = {
 
 export function AdminDashboard() {
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
   const [listingType, setListingType] = useState<"sale" | "rental">("sale");
   const [salesCars, setSalesCars] = useState<SaleVehicle[]>([]);
   const [rentalCars, setRentalCars] = useState<RentalVehicle[]>([]);
@@ -112,11 +114,19 @@ export function AdminDashboard() {
 
     if (error) {
       toast.error("Could not delete record.");
-    } else {
-      toast.success("Asset deleted successfully.");
-      if (type === "sale") setSalesCars(salesCars.filter((car) => car.id !== id));
-      else setRentalCars(rentalCars.filter((car) => car.id !== id));
+      return;
     }
+
+    toast.success("Asset deleted successfully.");
+
+    if (type === "sale") {
+      setSalesCars((current) => current.filter((car) => car.id !== id));
+    } else {
+      setRentalCars((current) => current.filter((car) => car.id !== id));
+      await queryClient.invalidateQueries({ queryKey: ["rentals"] });
+    }
+
+    await fetchInventory();
   }
 
   async function handleSubmit(event: React.FormEvent) {
